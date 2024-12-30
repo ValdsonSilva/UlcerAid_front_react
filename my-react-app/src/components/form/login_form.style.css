@@ -1,0 +1,49 @@
+@charset "utf-8";
+
+#lado-formulario {
+    width: 50%;
+    height:auto;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-direction: column;
+    margin: 0;
+    padding: 0;
+    /* background-color: #00ff9d; */
+}
+
+#formulario {
+    background-color: rgb(255, 255, 255);
+    display: flex;
+    /* justify-content: center; */
+    align-items: center;
+    flex-direction: column;
+
+    width: 50%;
+    height: 500px;
+    gap: 50px;
+    margin-top: 0;
+    padding-bottom: 30px;
+}
+
+#nome, #senha, #botao-form {
+    height: 40px;
+    width: 80%;
+    padding-left: 5px;
+    font-size: 15px;
+    border-radius: 10px;
+    border: 1px solid var(--secondary-bg);
+    cursor: pointer;
+}
+
+#botao-form {
+    /* background-color: rgb(48, 209, 156); */
+    background-color: var(--main-bg);
+    border: none;
+    box-shadow: 1px;
+    color: #fff;
+    width: 400;
+}
+
+
+
