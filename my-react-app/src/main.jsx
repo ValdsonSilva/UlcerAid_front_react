@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 import './index.css'
 import Login from './components/pages/login/login.jsx'
-import Enfermeiro_area_logada from './components/pages/area_logada_enf/enfermeiro_area_logada.jsx'
+import Predicao from './components/pages/area_logada_enf/predicao.jsx'
 
 
 const router = createBrowserRouter([
@@ -12,8 +12,19 @@ const router = createBrowserRouter([
     element : <Login/>
   },
   {
-    path : "/enfermeiro_area_logada",
-    element : <Enfermeiro_area_logada/>
+    path : "/predicao",
+    element : <Predicao/>
+  },
+  {
+    path : "/dashboard",
+    element : "<DashBoard/>"
+  },
+  {
+    path : "/perfil",
+    element : "<Perfil/>"
+  },
+  {
+    errorElement : "<Error/>"
   }
 ])
 

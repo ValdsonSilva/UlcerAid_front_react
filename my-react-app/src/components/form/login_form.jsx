@@ -12,7 +12,7 @@ function Login_form() {
     const [submitState, setSubmitState] = useState(false)
 
     function handleNavigate() {
-        navigate("/enfermeiro_area_logada")
+        navigate("/predicao")
     }
 
     const handleChange = (event) => {
