@@ -4,6 +4,8 @@ import {createBrowserRouter, RouterProvider} from "react-router-dom"
 import './index.css'
 import Login from './components/pages/login/login.jsx'
 import Predicao from './components/pages/area_logada_enf/predicao.jsx'
+import Dashboard from './components/pages/dashboard/dashboard.jsx'
+import Perfil from './components/pages/perfil/perfil.jsx'
 
 
 const router = createBrowserRouter([
@@ -17,17 +19,16 @@ const router = createBrowserRouter([
   },
   {
     path : "/dashboard",
-    element : "<DashBoard/>"
+    element : <Dashboard/>
   },
   {
     path : "/perfil",
-    element : "<Perfil/>"
+    element : <Perfil/>
   },
   {
     errorElement : "<Error/>"
   }
 ])
-
 
 createRoot(document.getElementById('root')).render(
   <StrictMode>
