@@ -6,6 +6,7 @@ import Login from './components/pages/login/login.jsx'
 import Predicao from './components/pages/area_logada_enf/predicao.jsx'
 import Dashboard from './components/pages/dashboard/dashboard.jsx'
 import Perfil from './components/pages/perfil/perfil.jsx'
+import Error from './components/error/error.jsx'
 
 
 const router = createBrowserRouter([
@@ -26,7 +27,7 @@ const router = createBrowserRouter([
     element : <Perfil/>
   },
   {
-    errorElement : "<Error/>"
+    errorElement : <Error/>
   }
 ])
 
