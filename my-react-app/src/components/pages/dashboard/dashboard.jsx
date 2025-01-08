@@ -47,7 +47,7 @@ function Dashboard() {
             data: data,
             options: {
                 responsive: true,
-                maintainAspectRatio: false
+                maintainAspectRatio: true
             }
         });
 
