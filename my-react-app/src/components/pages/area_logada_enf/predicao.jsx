@@ -35,8 +35,7 @@ function Predicao() {
     return (
         <>
             <SideBar/>
-            <div style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column",padding: "20px"}}>
-                <h1 style={{textAlign: "center"}}>Predição</h1>
+            <div style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column",padding: "20px", marginTop: "150px"}}>
                 <p>Envie uma imagem da ferida para análise.</p>
                 {!result ? (
                     <>

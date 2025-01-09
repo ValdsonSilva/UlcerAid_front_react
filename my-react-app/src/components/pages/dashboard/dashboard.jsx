@@ -67,7 +67,8 @@ function Dashboard() {
             <h1 style={{ textAlign: "center" }}>Dashboard de Predições</h1>
             <div style={{
                 display: "flex", justifyContent: "center", alignItems: "center", 
-                width: '60%', height: '400px', margin: '0 auto' 
+                width: '60%', height: '400px', margin: '0 auto', 
+                marginTop: "150px"
             }}>
                 {/* Corrigido para usar <canvas> */}
                 <canvas ref={chartRef}></canvas>
