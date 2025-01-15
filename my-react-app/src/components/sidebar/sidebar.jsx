@@ -32,7 +32,7 @@ function SideBar() {
         <>
             <div id="container">  
                 <div id="navbar">
-                    <h1>Area do profissional de Enfermagem</h1>
+                    <h1>Área do profissional de Enfermagem</h1>
                 </div>
                 <div id="sidebar">
                     <ul id="lista-links">

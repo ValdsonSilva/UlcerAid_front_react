@@ -23,7 +23,7 @@ span {
     padding: 50px;
     max-width: 800px;
     width: 100%;
-    /* background-color: rgb(255, 255, 255); */
+    background-color: rgb(255, 255, 255);
     height: auto;
     border: 2px solid #000;
     border-radius: 25px;
@@ -47,7 +47,7 @@ span {
 }
 
 #d1 > div, #d1-p > div > div, #d2 > div {
-    background-color: rgb(255, 254, 253);
+    background-color: rgb(230, 229, 229);
     border-radius: 5px;
     padding: 3px;
     font-size: 14px;
