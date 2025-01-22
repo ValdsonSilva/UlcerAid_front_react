@@ -1,6 +1,7 @@
 import { useState } from "react";
 import {useNavigate} from "react-router-dom"
 import "./login_form.style.css"
+import api from "../../services/api.js"
 
 function Login_form() {
 
@@ -8,6 +9,10 @@ function Login_form() {
         nome : "",
         senha : ""
     })
+    const [loading, setLoading] = useState(false)
+    const navigate = useNavigate()
+
+    console.log("Dados:", formData)
 
     const handleChange = (event) => {
         /**
@@ -21,19 +26,55 @@ function Login_form() {
         /**
          * ...formData é o spread operator, ele traz uma cópia
          * do estado atual do formData, [id] notação de chave 
-         * computada. É como se fosse "formData["nome"] = value"
+         * computada. É como se fosse "formData["nome"] = 'Valdson'"
          */
     }
-
-    const navigate = useNavigate()
 
     function handleNavigate() {
         navigate("/predicao")
     }
 
-    const handleSubmit = (event) => {
+    const handleSubmit = async (event) => {
         event.preventDefault()
-        handleNavigate()
+
+        setLoading(!loading)
+
+        if (!formData.nome || !formData.senha) {
+            alert('Por favor, preencha os campos de nome e senha.');
+            return;
+        }
+
+        try {
+            const response = await api.post('/api/v1/login', {
+                username: formData.nome,
+                password: formData.senha
+            })
+
+            if (!response) {
+                throw new Error("Erro ao efetuar login" + response.error)
+            }
+
+            localStorage.setItem("token", response.data.token)
+
+            handleNavigate()
+        } catch (error) {
+
+            if (error.status == 400) {
+                console.log("Erro:", error.response.data.details)
+                alert(`${error.response.data.message}`)
+            }
+            if (error.status == 401) {
+                console.log("Erro:", error.response.data.details)
+                alert(`${error.response.data.message}`)
+            }
+            if (error.status == 500) {
+                console.log("Erro:", error.response.data.details)
+                alert(`${error.response.data.message}`)
+            }
+        } finally {
+            setFormData({nome: "", senha: ""})
+            setLoading(false)
+        }
     }       
 
 
@@ -59,7 +100,9 @@ function Login_form() {
                     id="senha"
                     required
                 />
-                <button type="submit" id="botao-form">Vamos lá</button>
+                <button type="submit" id="botao-form">
+                    {loading ? "Carregando..." : "Vamos lá"}
+                </button>
                 <a href="#">Esqueci minha senha</a>
             </form>
         </div>

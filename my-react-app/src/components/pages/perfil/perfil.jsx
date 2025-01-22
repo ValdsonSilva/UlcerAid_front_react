@@ -1,7 +1,71 @@
 import "./perfil.style.css"
 import SideBar from "../../sidebar/sidebar"
+import { useMemo, useState } from "react";
+import api from "../../../services/api.js"
+import decodeToken from "../../../services/decodeToken.js";
 
 function Perfil() {
+
+    const [userData, setUserData] = useState({
+        nome : "Carregando...",
+        cpf : "Carregando...",
+        contato : "Carregando...",
+        endereco : "Carregando...",
+        coren: "Carregando...",
+        area : "Carregando...",
+        instituicao : "Carregando...",
+        data_cadastro : "Carregando..."
+    })
+
+    const [token, setToken] = useState(decodeToken())
+
+    console.log("O token:", token)
+
+    useMemo(() => {
+        const getUserData = async () => {
+            try {   
+                const response = await api.get("/api/v1/user", {
+                    id : "6787ceca53faaf81058ef599",
+                })
+
+                if (!response) {
+                    throw new Error(response.status)
+                }
+
+                setUserData({
+                    nome : response.data.nome,
+                    cpf : response.data.cpf,
+                    contato : response.data.contato,
+                    endereco : response.data.endereco,
+                    coren: response.data.coren,
+                    area : response.data.area,
+                    instituicao : response.data.instituicao,
+                    data_cadastro : response.data.createdAt
+                })
+
+            } catch (error) {
+                console.log(error)
+
+                if (error.status == 400) {
+                    console.log("Erro:", error.response.data.details)
+                    alert(`${error.response.data.message}`)
+                }
+                if (error.status == 401) {
+                    console.log("Erro:", error.response.data.details)
+                    alert(`${error.response.data.message}`)
+                }
+                if (error.status == 500) {
+                    console.log("Erro:", error.response.data.details)
+                    alert(`${error.response.data.message}`)
+                }
+            }
+        }
+
+        getUserData()
+
+    }, [userData])
+
+
     
     return (
         <>
