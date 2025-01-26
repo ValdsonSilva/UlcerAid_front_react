@@ -2,6 +2,7 @@ import { useEffect, useState } from "react"
 import "./sidebar.style.css"
 import {FaUser, FaGlobe, FaChartBar, FaSignInAlt} from "react-icons/fa"
 import { Link } from "react-router-dom"
+import logout from "../../context/logout.js"
 
 
 function SideBar() {
@@ -37,7 +38,7 @@ function SideBar() {
                 <div id="sidebar">
                     <ul id="lista-links">
                         <li>
-                            <Link to={"/"} style={{color: "#000"}}>Sair</Link>
+                            <Link to={"/"} style={{color: "#000"}} onClick={logout}>Sair</Link>
                             <FaSignInAlt size={25}/> 
                         </li>
                         <li>

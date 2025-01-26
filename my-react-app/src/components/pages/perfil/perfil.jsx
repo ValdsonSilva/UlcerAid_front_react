@@ -1,8 +1,9 @@
 import "./perfil.style.css"
 import SideBar from "../../sidebar/sidebar"
-import { useMemo, useState } from "react";
+import { useEffect, useMemo, useState } from "react";
 import api from "../../../services/api.js"
 import decodeToken from "../../../services/decodeToken.js";
+import { data } from "react-router-dom";
 
 function Perfil() {
 
@@ -21,51 +22,62 @@ function Perfil() {
 
     console.log("O token:", token)
 
-    useMemo(() => {
+    useEffect(() => {
+
         const getUserData = async () => {
-            try {   
-                const response = await api.get("/api/v1/user", {
-                    id : "6787ceca53faaf81058ef599",
-                })
+            
+            console.log("id: ", token.id)
 
-                if (!response) {
-                    throw new Error(response.status)
-                }
+            if (token.id) {
+                try {   
+                    const response = await api.get("/api/v1/user", {
+                        params : {
+                            id : token.id
+                        }
+                    })
 
-                setUserData({
-                    nome : response.data.nome,
-                    cpf : response.data.cpf,
-                    contato : response.data.contato,
-                    endereco : response.data.endereco,
-                    coren: response.data.coren,
-                    area : response.data.area,
-                    instituicao : response.data.instituicao,
-                    data_cadastro : response.data.createdAt
-                })
+                    if (!response) {
+                        throw new Error(response.status)
+                    }
 
-            } catch (error) {
-                console.log(error)
+                    setUserData({
+                        nome : response.data.user.username,
+                        cpf : response.data.user.cpf,
+                        contato : response.data.user.contact,
+                        endereco : response.data.user.address,
+                        coren: response.data.user.coren,
+                        area : response.data.user.area,
+                        instituicao : response.data.user.institution,
+                        data_cadastro : response.data.user.createdAt
+                    })
 
-                if (error.status == 400) {
-                    console.log("Erro:", error.response.data.details)
-                    alert(`${error.response.data.message}`)
-                }
-                if (error.status == 401) {
-                    console.log("Erro:", error.response.data.details)
-                    alert(`${error.response.data.message}`)
-                }
-                if (error.status == 500) {
-                    console.log("Erro:", error.response.data.details)
-                    alert(`${error.response.data.message}`)
+                    console.log("Dados: ", response.data)
+
+
+                } catch (error) {
+                    console.log(error)
+
+                    if (error.status == 400) {
+                        console.log("Erro:", error.response.data.details)
+                        alert(`${error.response.data.message}`)
+                    }
+                    if (error.status == 401) {
+                        console.log("Erro:", error.response.data.details)
+                        alert(`${error.response.data.message}`)
+                    }
+                    if (error.status == 500) {
+                        console.log("Erro:", error.response.data.details)
+                        alert(`${error.response.data.message}`)
+                    }
                 }
             }
         }
 
         getUserData()
 
-    }, [userData])
+    }, [])
 
-
+    console.log("Dados certo: ", userData)
     
     return (
         <>
