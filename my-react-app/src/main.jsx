@@ -7,6 +7,7 @@ import Predicao from './components/pages/area_logada_enf/predicao.jsx'
 import Dashboard from './components/pages/dashboard/dashboard.jsx'
 import Perfil from './components/pages/perfil/perfil.jsx'
 import Error from './components/error/error.jsx'
+import { AuthProvider } from './context/authContext.jsx'
 
 
 const router = createBrowserRouter([
@@ -16,15 +17,15 @@ const router = createBrowserRouter([
   },
   {
     path : "/predicao",
-    element : <Predicao/>
+    element : <AuthProvider><Predicao/></AuthProvider>
   },
   {
     path : "/dashboard",
-    element : <Dashboard/>
+    element : <AuthProvider><Dashboard/></AuthProvider>
   },
   {
     path : "/perfil",
-    element : <Perfil/>
+    element : <AuthProvider><Perfil/></AuthProvider>
   },
   {
     errorElement : <Error/>

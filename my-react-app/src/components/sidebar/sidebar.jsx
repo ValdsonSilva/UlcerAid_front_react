@@ -1,12 +1,13 @@
-import { useEffect, useState } from "react"
+import { useEffect, useState, useContext } from "react"
 import "./sidebar.style.css"
 import {FaUser, FaGlobe, FaChartBar, FaSignInAlt} from "react-icons/fa"
 import { Link } from "react-router-dom"
-import logout from "../../context/logout.js"
+import { AuthContext } from "../../context/authContext.jsx"
 
 
 function SideBar() {
     
+    const {logout} = useContext(AuthContext)
     const [predicaoState, setPredicaoState] = useState(false)
     const [dashboardState, setDashboardState] = useState(false)
     const [perfilState, setPerfilState] = useState(false)

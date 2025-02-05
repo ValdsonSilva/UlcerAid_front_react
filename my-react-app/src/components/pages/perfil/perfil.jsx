@@ -1,12 +1,18 @@
 import "./perfil.style.css"
 import SideBar from "../../sidebar/sidebar"
-import { useEffect, useMemo, useState } from "react";
-import api from "../../../services/api.js"
-import decodeToken from "../../../services/decodeToken.js";
-import { data } from "react-router-dom";
+import { useContext, useEffect, useMemo, useState } from "react";
+import { AuthContext } from "../../../context/authContext.jsx";
+import useGetUserData from "../../../services/userHooks/useGetUserData.js";
+
+const toFormattedCpf = (cpf) => {
+  
+    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
+}
 
 function Perfil() {
 
+    const {isAuthenticated, decodeToken, protectedRoute} = useContext(AuthContext);
+    const [token_decodificado] = useState(decodeToken())
     const [userData, setUserData] = useState({
         nome : "Carregando...",
         cpf : "Carregando...",
@@ -18,62 +24,26 @@ function Perfil() {
         data_cadastro : "Carregando..."
     })
 
-    const [token, setToken] = useState(decodeToken())
-
-    console.log("O token:", token)
+    useEffect(() => {
+        protectedRoute()
+    }, [isAuthenticated])
 
     useEffect(() => {
-
-        const getUserData = async () => {
-            
-            console.log("id: ", token.id)
-
-            if (token.id) {
-                try {   
-                    const response = await api.get("/api/v1/user", {
-                        params : {
-                            id : token.id
-                        }
-                    })
-
-                    if (!response) {
-                        throw new Error(response.status)
-                    }
-
-                    setUserData({
-                        nome : response.data.user.username,
-                        cpf : response.data.user.cpf,
-                        contato : response.data.user.contact,
-                        endereco : response.data.user.address,
-                        coren: response.data.user.coren,
-                        area : response.data.user.area,
-                        instituicao : response.data.user.institution,
-                        data_cadastro : response.data.user.createdAt
-                    })
-
-                    console.log("Dados: ", response.data)
-
-
-                } catch (error) {
-                    console.log(error)
-
-                    if (error.status == 400) {
-                        console.log("Erro:", error.response.data.details)
-                        alert(`${error.response.data.message}`)
-                    }
-                    if (error.status == 401) {
-                        console.log("Erro:", error.response.data.details)
-                        alert(`${error.response.data.message}`)
-                    }
-                    if (error.status == 500) {
-                        console.log("Erro:", error.response.data.details)
-                        alert(`${error.response.data.message}`)
-                    }
-                }
-            }
+        const fetchUserData = async () => {
+            const data = await useGetUserData(token_decodificado)
+            setUserData({
+                nome : data.username,
+                cpf : data.cpf,
+                contato : data.contact,
+                endereco : data.adress,
+                coren: data.coren,
+                area : data.area,
+                instituicao : data.institution,
+                data_cadastro : data.createdAt
+            })
         }
 
-        getUserData()
+        fetchUserData()
 
     }, [])
 
@@ -95,19 +65,19 @@ function Perfil() {
                         <div>
                             <div id="d1">
                                 <span>Nome</span>
-                                <div>Valdson Silva de Macedo</div>
+                                <div>{userData.nome ? userData.nome : "Sem registro"}</div>
                                 <span>Cadastrado em</span>
-                                <div>11-12-2024</div>
+                                <div>{userData.data_cadastro ? userData.data_cadastro : "Sem registro"}</div>
                                 <span>Contato</span>
-                                <div>(89) 99433-1777</div>
+                                <div>{userData.contato ? userData.contato : "Sem registro"}</div>
                                 <span>Nascimento</span>
                                 <div>11-12-2002</div>
                             </div>
                             <div id="d2">
                                 <span>CPF/RG</span>
-                                <div>111.111.111-11</div>
+                                <div>{userData.cpf ? toFormattedCpf(userData.cpf) : "Sem registro"}</div>
                                 <span>Endereço</span>
-                                <div>Rua Cunha, 117, Bairro Silca, Floriano, Pi, 64801-710</div>
+                                <div>{userData.endereco ? userData.endereco : "Sem registro"}</div>
                             </div>
                         </div> 
                     </div>
@@ -116,15 +86,15 @@ function Perfil() {
                         <div id="d1-p">
                             <div>
                                 <span>COREN</span>
-                                <div>11111111111</div>
+                                <div>{userData.coren ? userData.coren : "Sem registro"}</div>
                             </div>
                             <div>
                                 <span>Formação</span>
-                                <div>Enfermeiro</div>
+                                <div>{userData.area ? userData.area : "Sem registro"}</div>
                             </div>
                             <div>
                                 <span>Instituição</span>
-                                <div>UFPI</div>
+                                <div>{userData.instituicao ? userData.instituicao : "Sem registro"}</div>
                             </div>
                         </div>
                     </div>

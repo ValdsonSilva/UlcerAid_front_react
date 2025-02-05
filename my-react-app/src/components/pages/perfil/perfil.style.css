@@ -49,9 +49,10 @@ span {
 #d1 > div, #d1-p > div > div, #d2 > div {
     background-color: rgb(230, 229, 229);
     border-radius: 5px;
-    padding: 3px;
+    padding: 6px;
     font-size: 14px;
     border: 2px solid var(--main-bg);
+    width: max-content;
 }
 
 #dados-pessoais-user-container > div {
