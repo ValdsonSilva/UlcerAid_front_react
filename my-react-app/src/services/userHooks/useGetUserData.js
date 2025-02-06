@@ -1,4 +1,4 @@
-import api from "../api.js"
+import api from "src/services/api.js"
 
 const useGetUserData = async (token) => {
 
