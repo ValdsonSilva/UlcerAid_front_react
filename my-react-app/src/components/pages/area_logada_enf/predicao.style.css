@@ -10,7 +10,7 @@
     border-radius: 10px;
     width: 25em;
     height: 20em;
-    background-image: url("../../../assets/upload.png");
+    /* background-image: url("../../../assets/upload.png"); */
     background-repeat: no-repeat;
     background-position: center;
     background-size: cover;
@@ -74,5 +74,13 @@
 
 #new-prediction-btn:hover {
     background-color: var(--main-bg);
+}
+
+#previewImagem {
+    display: block;
+    background-color: #827e7e;
+    width: 20rem;
+    height: 80px;
+    margin-bottom: 30px
 }
   
