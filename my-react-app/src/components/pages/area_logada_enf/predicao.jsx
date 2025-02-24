@@ -5,10 +5,12 @@ import { FaFilePdf, FaPlus } from "react-icons/fa";
 import imprimirRelatorio from "../../../services/imprimirPdf";
 import upload from "../../../assets/upload.png"
 import api from "../../../services/api.js"
+import SuccessPopup from "../../popups/success/successPopup.jsx";
 
 
 
 function Predicao() {
+
     const [image, setImage] = useState(null)
     const fileInputRef = useRef(null)
     const [preview, setPreview] = useState('')
@@ -82,6 +84,7 @@ function Predicao() {
             <SideBar/>
             <form onSubmit={fetchPrediction} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column",padding: "20px", marginTop: "150px"}}>
                 <p>Envie uma imagem da ferida para análise.</p>
+                <SuccessPopup/>
                 {!prediction ? (
                     <>
                         <div 
