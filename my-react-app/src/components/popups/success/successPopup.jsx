@@ -1,8 +1,8 @@
 
 function SuccesPopup() {
     return (
-        <div className="flex justify-center content-center w-max mx-10 h-15 rounded-full z-10 bg-green-600">
-            <h1 className="text-amber-50 px-12">Requisição realizada com sucesso</h1>
+        <div className="flex justify-center items-center w-2/4 mx-10 h-20 rounded-xl z-10 bg-green-600">
+            <h1 className="text-amber-50 px-12 font-medium">Requisição realizada com sucesso :)</h1>
         </div>
     )
 }

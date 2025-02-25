@@ -1,6 +1,5 @@
 import { useState } from "react";
 import {useNavigate} from "react-router-dom"
-import "./login_form.style.css"
 import api from "../../services/api.js"
 
 function Login_form() {
@@ -79,16 +78,17 @@ function Login_form() {
 
 
     return (
-        <div id="lado-formulario">
-            <h1>UlcerAid</h1>
-            <form onSubmit={handleSubmit} id="formulario">
-                <h1>Olá, Enfermeiro(a) :)</h1>
+        <div id="lado-formulario" className="w-1/2 h-auto flex content-center items-center flex-col m-0 p-5">
+            <h1 className="font-semibold">UlcerAid</h1>
+            <form onSubmit={handleSubmit} id="formulario" className="bg-white flex items-center flex-col w-1/2 h-fit gap-12 mt-0 pb-7">
+                <h1 className="font-bold mt-5">Olá, Enfermeiro(a) :)</h1>
                 <input 
                     type="text" 
                     placeholder="nome" 
                     value={formData.nome}
                     onChange={handleChange}
                     id="nome"
+                    className="w-4/5 h-10 p-1 size-3 border-solid border-2 border-[--secondary-bg] rounded-xl cursor-pointer"
                     required
                 />
 
@@ -98,9 +98,14 @@ function Login_form() {
                     value={formData.senha}
                     onChange={handleChange}
                     id="senha"
+                    className="w-4/5 h-10 p-1 size-3 border-solid border-2 border-[--secondary-bg] rounded-xl cursor-pointer"
                     required
                 />
-                <button type="submit" id="botao-form">
+                <button 
+                    type="submit" 
+                    id="botao-form"
+                    className="w-4/5 h-10 p-1 size-3 border-none shadow-black rounded-xl cursor-pointer bg-[--main-bg] text-white"
+                >
                     {loading ? "Carregando..." : "Vamos lá"}
                 </button>
                 <a href="#">Esqueci minha senha</a>
