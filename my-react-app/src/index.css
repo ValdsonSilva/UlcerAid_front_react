@@ -19,3 +19,14 @@
   --main-bg: rgb(48, 209, 156);
   --secondary-bg: rgb(13, 174, 134);
 }
+
+
+@layer components {
+  .custom-box {
+    @apply bg-slate-300 flex justify-center items-center rounded-md p-2 size-4 border-2 border-solid border-[--main-bg] w-max;
+  }
+
+  .custom-span {
+    @apply font-medium w-full flex justify-start
+  }
+}

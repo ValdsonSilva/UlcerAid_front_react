@@ -16,6 +16,7 @@ function Predicao() {
     const [preview, setPreview] = useState('')
     const [prediction, setPrediction] = useState(false)
     const [popup, setPopup] = useState(false)
+    const [loading, setLoading] = useState(false)
 
     const fetchPrediction = async (event) => {
 
@@ -24,6 +25,8 @@ function Predicao() {
         const formData = new FormData()
 
         formData.append("image", image)
+
+        setLoading(!loading)
 
         try {
             const response = await api.post('/api/v1/predict', formData)
@@ -59,6 +62,7 @@ function Predicao() {
             }
         }  finally {
             setPreview('')
+            setLoading(false)
         }
     }
 
@@ -90,9 +94,10 @@ function Predicao() {
             <SideBar/>
             <form onSubmit={fetchPrediction} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column",padding: "20px", marginTop: "150px"}}>
                 {popup ? <SuccessPopup/> : ""}
-                <p>Envie uma imagem da ferida para análise.</p>
+                
                 {!prediction ? (
                     <>
+                        {loading ? <p style={{fontWeight: 600}}>Processando imagem...</p> : <p>Envie uma imagem da ferida para análise.</p>}
                         <div 
                             id="input-file" 
                             style={
@@ -153,7 +158,6 @@ function Predicao() {
                                     >
                                         Enviar o arquivo
                                     </button>
-                                    <p style={{fontWeight: 600}}>Processando imagem...</p>
                                 </>
                             )}
                         </div>

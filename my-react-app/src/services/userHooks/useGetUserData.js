@@ -5,7 +5,7 @@ const useGetUserData = async (token) => {
     const cachedUserData = localStorage.getItem("cachedUserData") || false
 
     if (!cachedUserData) {
-        alert("requisição")
+        // alert("requisição")
 
         if (token.id) {
 
