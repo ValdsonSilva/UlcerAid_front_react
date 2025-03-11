@@ -1,22 +1,56 @@
-import { useState, useRef } from "react";
-import SideBar from "../../sidebar/sidebar";
-// import "./predicao.style.css"
+import { useState, useRef, useContext, useEffect } from "react";
+import SideBar from "../../sidebar/sidebar.jsx";
 import { FaFilePdf, FaPlus } from "react-icons/fa";
-import imprimirRelatorio from "../../../services/imprimirPdf";
+import imprimirRelatorio from "../../../services/imprimirPdf.js";
 import upload from "../../../assets/upload.png"
 import api from "../../../services/api.js"
 import SuccessPopup from "../../popups/success/successPopup.jsx";
+import ErrorPopup from "../../popups/error/errorPopup.jsx";
+import { AuthContext } from "../../../context/authContext.jsx";
+import useGetUserData from "../../../services/userHooks/useGetUserData.js";
 
 
 
 function Predicao() {
-
+    const {decodeToken} = useContext(AuthContext)
     const [image, setImage] = useState(null)
     const fileInputRef = useRef(null)
     const [preview, setPreview] = useState('')
     const [prediction, setPrediction] = useState(false)
     const [popup, setPopup] = useState(false)
+    const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
+    const [userData, setUserData] = useState({
+        nome : "Carregando...",
+        cpf : "Carregando...",
+        contato : "Carregando...",
+        endereco : "Carregando...",
+        coren: "Carregando...",
+        area : "Carregando...",
+        instituicao : "Carregando...",
+        data_cadastro : "Carregando..."
+    })
+
+    const token_decodificado = decodeToken()
+    
+    useEffect(() => {
+        const fetchUserData = async () => {
+            const data = await useGetUserData(token_decodificado)
+            setUserData({
+                nome : data.username,
+                cpf : data.cpf,
+                contato : data.contact,
+                endereco : data.adress,
+                coren: data.coren,
+                area : data.area,
+                instituicao : data.institution,
+                data_cadastro : data.createdAt
+            })
+        }
+
+        fetchUserData()
+
+    }, [])
 
     const fetchPrediction = async (event) => {
 
@@ -38,10 +72,11 @@ function Predicao() {
             }
 
             setPrediction(response.data.result)
-            setPopup(true)
+            setPopup(!popup)
             console.log("predição:", response.data)
 
         } catch (error) {
+            setError(true)
             console.log(error)
     
             if (error.status == 400) {
@@ -87,6 +122,7 @@ function Predicao() {
 
     setTimeout(() => {
         setPopup(false)
+        setError(false)
     }, 3000)
 
     return (
@@ -94,6 +130,7 @@ function Predicao() {
             <SideBar/>
             <form onSubmit={fetchPrediction} style={{display: "flex", justifyContent: "center", alignItems: "center", flexDirection: "column",padding: "20px", marginTop: "150px"}}>
                 {popup ? <SuccessPopup/> : ""}
+                {error ? <ErrorPopup/> : ""}
                 
                 {!prediction ? (
                     <>
@@ -184,7 +221,7 @@ function Predicao() {
                             Relatório de Predição
                         </h2>
                         <p className="m-5 text-base"><strong>Resultado: </strong>{
-                            prediction ? `${prediction.prediction} (95% de certeza)` : `${prediction.prediction}`
+                            prediction ? `${prediction.prediction.classe} (${prediction.prediction.probabilidade}%)` : `${prediction.prediction.classe}`
                         }</p>
                         <p className="m-5 text-base"><strong>Recomendação: </strong>Procure um médico</p>
                         <button 
@@ -208,7 +245,7 @@ function Predicao() {
                         </button>
                         <button 
                             id="new-prediction-btn" 
-                            onClick={imprimirRelatorio} 
+                            onClick={() => imprimirRelatorio(userData.nome, prediction.prediction.classe, prediction.prediction.probabilidade)} 
                             type="button"
                             className={`
                                 w-max h-max

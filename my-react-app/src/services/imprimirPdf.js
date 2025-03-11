@@ -1,6 +1,17 @@
+import { toFormData } from "axios";
 import jsPDF from "jspdf"
 
-const imprimirRelatorio = () => {
+function data_da_solicitação_do_exame() {
+    const date = new Date()
+
+    const dia = date.getUTCDate()
+    const mes = date.getUTCMonth()
+    const ano = date.getUTCFullYear()
+
+    return `${dia}/${mes}/${ano}`
+}
+
+const imprimirRelatorio = (profissional_solicitante, resultado, probabilidade) => {
     const doc = new jsPDF();
 
     // Cabeçalho
@@ -17,9 +28,9 @@ const imprimirRelatorio = () => {
     // Dados do exame
     doc.setFontSize(12);
     doc.setFont("helvetica", "normal");
-    doc.text("Solicitante: Enf. Valdson Silva de Macedo", 20, 80);
+    doc.text(`Solicitante: Enf. ${profissional_solicitante}`, 20, 80);
     doc.text("COREN: 1111111", 20, 90);
-    doc.text("Data: 11-12-2025", 20, 100);
+    doc.text(`Data: ${data_da_solicitação_do_exame()}`, 20, 100);
     doc.text("Instituição: UFPI", 20, 110);
 
     // Resultado
@@ -29,7 +40,7 @@ const imprimirRelatorio = () => {
 
     doc.setFont("helvetica", "normal");
     doc.setFontSize(12);
-    doc.text("Úlcera detectada (90% de acurácia)", 20, 140);
+    doc.text(`${resultado} (${probabilidade}%)`, 20, 140);
 
     // Recomendação
     doc.setFont("helvetica", "bold");

@@ -3,7 +3,7 @@ import { createRoot } from 'react-dom/client'
 import {createBrowserRouter, RouterProvider} from "react-router-dom"
 import './index.css'
 import Login from './components/pages/login/login.jsx'
-import Predicao from './components/pages/area_logada_enf/predicao.jsx'
+import Predicao from './components/pages/predicao/predicao.jsx'
 import Dashboard from './components/pages/dashboard/dashboard.jsx'
 import Perfil from './components/pages/perfil/perfil.jsx'
 import Error from './components/error/error.jsx'

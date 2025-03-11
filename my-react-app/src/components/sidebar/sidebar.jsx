@@ -33,8 +33,8 @@ function SideBar() {
     return (
         <>
             <div id="container" className="flex justify-center flex-col bg-white">  
-                <div id="navbar" className="flex justify-center items-center border-b-2 border-solid border-[--main-bg] bg-white w-full">
-                    <h1>Área do profissional de Enfermagem</h1>
+                <div id="navbar" className="flex justify-center items-center border-b-2 border-solid border-[--main-bg] bg-white w-full h-[50px]">
+                    <h1 className="font-bold text-xl">Área do profissional de Enfermagem</h1>
                 </div>
                 <div id="sidebar" className="fixed top-0 left-0 h-svh w-52 bg-white boder-r-2 border-solid border-r-cyan-300 flex flex-col justify-between items-center z-10">
                     <ul id="lista-links" className="flex items-start flex-col w-fit m-0 pt-28 pb-0.5 gap-16">

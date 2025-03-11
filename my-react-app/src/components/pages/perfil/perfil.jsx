@@ -9,6 +9,13 @@ const toFormattedCpf = (cpf) => {
     return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
 }
 
+const toFormatteDate = (data) => {
+    const data_extraida = data.split("T")
+    const partes_da_data = data_extraida[0].split("-")
+
+    return `${partes_da_data[2]}/${partes_da_data[1]}/${partes_da_data[0]}`
+}
+
 function Perfil() {
 
     const {isAuthenticated, decodeToken, protectedRoute} = useContext(AuthContext);
@@ -52,7 +59,7 @@ function Perfil() {
     return (
         <>
             <SideBar/>
-            <div className="flex justify-center items-center flex-col mt-12 w-full h-screen">
+            <div className="flex justify-center items-center flex-col mt-48 w-full h-full">
                 <div  className="grid grid-rows-2 grid-cols-[300px_2fr] items-center p-12 w-fit bg-white h-auto border-solid border-spacing-1 border-black rounded-3xl">
                 
                     <figure className="bg-white w-36 h-44 border-spacing-1 border-solid border-[--main-bg] rounded-xl">
@@ -68,11 +75,11 @@ function Perfil() {
                                 <span className="custom-span">Nome</span>
                                 <div className="custom-box">{userData.nome ? userData.nome : "Sem registro"}</div>
                                 <span className="custom-span">Cadastrado em</span>
-                                <div className="custom-box">{userData.data_cadastro ? userData.data_cadastro : "Sem registro"}</div>
+                                <div className="custom-box">{userData.data_cadastro ? toFormatteDate(userData.data_cadastro) : "Sem registro"}</div>
                                 <span className="custom-span">Contato</span>
                                 <div className="custom-box">{userData.contato ? userData.contato : "Sem registro"}</div>
                                 <span className="custom-span">Nascimento</span>
-                                <div className="custom-box">11-12-2002</div>
+                                <div className="custom-box">11/12/2002</div>
                             </div>
                             <div id="d2">
                                 <span className="custom-span">CPF/RG</span>
