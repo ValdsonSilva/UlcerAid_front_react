@@ -2,7 +2,7 @@
 
 Interface web desenvolvida em React para o sistema **UlcerAId**, uma solução que auxilia profissionais de saúde na predição automatizada de úlceras em pés diabéticos, a partir do envio de imagens para análise.
 
-Este frontend consome a [UlcerAId Node API](https://github.com/seurepositorio/UlcerAId-Node-API) e foi projetado com foco na usabilidade e eficiência para profissionais de enfermagem.
+Este frontend consome a [UlcerAId API Node](https://github.com/ValdsonSilva/UlcerAid_api_node) e foi projetado com foco na usabilidade e eficiência para profissionais de enfermagem.
 
 ---
 
