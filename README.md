@@ -1,4 +1,4 @@
-# 🖼️ UlcerAId Frontend
+# 🖼️ UlcerAId Frontend - (Em construção)
 
 Interface web desenvolvida em React para o sistema **UlcerAId**, uma solução que auxilia profissionais de saúde na predição automatizada de úlceras em pés diabéticos, a partir do envio de imagens para análise.
 
