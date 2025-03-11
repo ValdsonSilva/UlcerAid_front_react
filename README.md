@@ -71,3 +71,6 @@ Faça upload da imagem da ferida
 Envie para o backend via rota /predict
 Receba uma resposta com o resultado da análise (ferida ulcerada ou não)
 
+Imagens:
+
+![Captura de tela 2025-03-11 121454](https://github.com/user-attachments/assets/7aa25b52-2199-47ea-9356-07faa8ec5a3a)
