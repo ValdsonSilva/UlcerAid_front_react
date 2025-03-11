@@ -53,7 +53,7 @@ src/
 ```
 🖥️ Como Rodar Localmente
 1. Clone o repositório:
-git clone https://github.com/seunome/UlcerAId-frontend.git
+git clone https://github.com/seunome/UlcerAId-frontend.git](https://github.com/ValdsonSilva/UlcerAid_front_react.git
 
 2. Acesse o diretório do projeto:
 cd my-react-app
