@@ -13,4 +13,7 @@ export default defineConfig({
         '@' : '/src'
       }
   },
+  build : {
+    outDir : "build" // diretório de saída para o Build
+  }
 })
