@@ -5,8 +5,8 @@ import api from "../../services/api.js"
 function Login_form() {
 
     const [formData, setFormData] = useState({
-        nome : "",
-        senha : ""
+        name : "",
+        password : ""
     })
     const [loading, setLoading] = useState(false)
     const navigate = useNavigate()
@@ -38,15 +38,15 @@ function Login_form() {
 
         setLoading(!loading)
 
-        if (!formData.nome || !formData.senha) {
+        if (!formData.name || !formData.password) {
             alert('Por favor, preencha os campos de nome e senha.');
             return;
         }
 
         try {
             const response = await api.post('/api/v1/login', {
-                username: formData.nome,
-                password: formData.senha
+                username: formData.name,
+                password: formData.password
             })
 
             if (!response) {
@@ -71,7 +71,7 @@ function Login_form() {
                 alert(`${error.response.data.message}`)
             }
         } finally {
-            setFormData({nome: "", senha: ""})
+            setFormData({name: "", password: ""})
             setLoading(false)
         }
     }       
@@ -85,7 +85,7 @@ function Login_form() {
                 <input 
                     type="text" 
                     placeholder="nome" 
-                    value={formData.nome}
+                    value={formData.name}
                     onChange={handleChange}
                     id="nome"
                     className="w-4/5 h-10 p-1 size-3 border-solid border-2 border-[--secondary-bg] rounded-xl cursor-pointer"
@@ -95,7 +95,7 @@ function Login_form() {
                 <input 
                     type="password" 
                     placeholder="senha" 
-                    value={formData.senha}
+                    value={formData.password}
                     onChange={handleChange}
                     id="senha"
                     className="w-4/5 h-10 p-1 size-3 border-solid border-2 border-[--secondary-bg] rounded-xl cursor-pointer"

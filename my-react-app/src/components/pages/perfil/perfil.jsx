@@ -1,20 +1,8 @@
-// import "./perfil.style.css"
 import SideBar from "../../sidebar/sidebar"
 import { useContext, useEffect, useMemo, useState } from "react";
 import { AuthContext } from "../../../context/authContext.jsx";
 import useGetUserData from "../../../services/userHooks/useGetUserData.js";
-
-const toFormattedCpf = (cpf) => {
-  
-    return cpf.replace(/(\d{3})(\d{3})(\d{3})(\d{2})/, "$1.$2.$3-$4");
-}
-
-const toFormatteDate = (data) => {
-    const data_extraida = data.split("T")
-    const partes_da_data = data_extraida[0].split("-")
-
-    return `${partes_da_data[2]}/${partes_da_data[1]}/${partes_da_data[0]}`
-}
+import { toFormatteDate, toFormattedCpf } from "../../../utils/formatters.js";
 
 function Perfil() {
 

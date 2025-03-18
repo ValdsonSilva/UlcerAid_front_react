@@ -21,14 +21,14 @@ function Predicao() {
     const [error, setError] = useState(false)
     const [loading, setLoading] = useState(false)
     const [userData, setUserData] = useState({
-        nome : "Carregando...",
+        name : "Carregando...",
         cpf : "Carregando...",
-        contato : "Carregando...",
-        endereco : "Carregando...",
+        contact : "Carregando...",
+        adress : "Carregando...",
         coren: "Carregando...",
         area : "Carregando...",
         instituicao : "Carregando...",
-        data_cadastro : "Carregando..."
+        createdAt : "Carregando..."
     })
 
     const token_decodificado = decodeToken()
@@ -37,14 +37,14 @@ function Predicao() {
         const fetchUserData = async () => {
             const data = await useGetUserData(token_decodificado)
             setUserData({
-                nome : data.username,
+                name : data.username,
                 cpf : data.cpf,
-                contato : data.contact,
-                endereco : data.adress,
+                contact : data.contact,
+                adress : data.adress,
                 coren: data.coren,
                 area : data.area,
                 instituicao : data.institution,
-                data_cadastro : data.createdAt
+                createdAt : data.createdAt
             })
         }
 
@@ -245,7 +245,7 @@ function Predicao() {
                         </button>
                         <button 
                             id="new-prediction-btn" 
-                            onClick={() => imprimirRelatorio(userData.nome, prediction.prediction.classe, prediction.prediction.probabilidade)} 
+                            onClick={() => imprimirRelatorio(userData.name, prediction.prediction.classe, prediction.prediction.probabilidade)} 
                             type="button"
                             className={`
                                 w-max h-max

@@ -1,4 +1,4 @@
-import { useContext, useState } from "react";
+import { useState } from "react";
 import * as jwt_decode from "jwt-decode"
 import { useNavigate } from "react-router-dom";
 import { createContext } from "react";
@@ -12,21 +12,22 @@ export const AuthProvider = ({children}) => {
     const [isAuthenticated, setIsAuthenticated] = useState(false)
     const [token, setToken] = useState(localStorage.getItem("token") || "")
 
-    useState(() => {
+    useEffect(() => {
         const loadStoredAuth = async () => {
-            try {
-                const storedToken = localStorage.getItem("token")
-
-                if (storedToken) {
-                    setToken(storedToken)
-                    setIsAuthenticated(!isAuthenticated)
-                }
-            } catch (error) {
-                console.error("Falha ao carregar dados da autenticação armazenada")
+          try {
+            const storedToken = localStorage.getItem("token");
+      
+            if (storedToken) {
+              setToken(storedToken);
+              setIsAuthenticated(true);
             }
-        }
-        loadStoredAuth()
-    }, [token])
+          } catch (error) {
+            console.error("Falha ao carregar dados da autenticação armazenada");
+          }
+        };
+      
+        loadStoredAuth();
+      }, []);
 
     const logout = () => {
         const token = localStorage.getItem("token")
@@ -49,7 +50,6 @@ export const AuthProvider = ({children}) => {
             return ""
         }
     }
-
     
     const decodeToken = () => {
         const token = localStorage.getItem("token")
